@@ -6,7 +6,7 @@ import { imageProvider, parseDataUrl, sizeToAspect, GEMINI_IMAGE_MODEL } from "@
 import { friendlyError } from "@/lib/errors";
 
 export const runtime = "nodejs";
-export const maxDuration = 300;
+export const maxDuration = 60; // Hobby プラン上限（Fluid Compute 無効時）。Gemini は1枚10〜20秒
 
 type Body = {
   prompt: string;

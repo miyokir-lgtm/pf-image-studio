@@ -8,7 +8,7 @@ import { promptProvider, parseDataUrl, GEMINI_TEXT_MODEL } from "@/lib/providers
 import { friendlyError } from "@/lib/errors";
 
 export const runtime = "nodejs";
-export const maxDuration = 120;
+export const maxDuration = 60;
 
 type Body = {
   product: string;
