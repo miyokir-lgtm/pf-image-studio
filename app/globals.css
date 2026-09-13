@@ -78,3 +78,35 @@ select:focus, input:focus, textarea:focus { outline: 2px solid rgba(34,44,64,0.2
 .login .brand { font-size: 22px; color: var(--navy); }
 .login p { color: var(--muted); font-size: 12px; }
 .cost { font-size: 11px; color: var(--muted); margin-top: 8px; text-align: right; }
+
+/* ===== v0.3 テンプレート方式で追加 ===== */
+.editbox { background: #fbf9f5; border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 14px; }
+.auto { font-size: 10px; color: var(--gold); border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; margin-left: 8px; letter-spacing: 0.04em; }
+.tag.alt { background: #fdf3f1; color: var(--danger); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: 12px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.chip:hover { border-color: var(--gold); }
+.chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.blocks { margin-top: 12px; border-top: 1px solid var(--line); }
+.blk { display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+.blk-l .src { display: block; font-family: var(--sans); font-size: 10px; color: var(--muted); letter-spacing: 0.04em; font-weight: 400; }
+.blk-l { color: var(--gold); font-family: var(--serif); font-weight: 600; letter-spacing: 0.04em; }
+.blk-t { color: var(--muted); line-height: 1.5; min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 640px) { .blk { grid-template-columns: 1fr; gap: 4px; } }
+.notes div + div { margin-top: 4px; }
+.prompt-box { min-height: 260px; }
+.status-confirmed strong { color: #2f6b4f; }
+.status-candidate strong { color: var(--gold); }
+.status-pending-approval strong { color: var(--danger); }
+.tag.st-confirmed { background: #e4efe8; color: #2f6b4f; }
+.tag.st-candidate { background: #f2ece1; color: var(--gold); }
+.tag.st-pending-approval { background: #fdf3f1; color: var(--danger); }
+/* 透過画像の確認用チェッカーボード */
+.shot.alpha img { background-color: #fff; background-image:
+  linear-gradient(45deg,#e8e6e0 25%,transparent 25%),
+  linear-gradient(-45deg,#e8e6e0 25%,transparent 25%),
+  linear-gradient(45deg,transparent 75%,#e8e6e0 75%),
+  linear-gradient(-45deg,transparent 75%,#e8e6e0 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0; }

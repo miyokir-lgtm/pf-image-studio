@@ -1,0 +1,319 @@
+{
+  "_readme": [
+    "テイスト（撮影スタイル）のマスタ。確定プロンプト PR-01〜PR-04 を12ブロックに分解したもの。",
+    "編集するときの注意:",
+    "  ・英文はそのまま画像生成AIに渡ります。日本語で書いても効きません。",
+    "  ・{{PRODUCT}} は商品マスタ(products.json)の appearance が入る差し込み記号です。消さないでください。",
+    "  ・blocks の各項目は『組み立て順』のとおりに連結されます。空文字にするとその段落は出力されません。",
+    "  ・JSONの書式（カンマ・ダブルクォート）を壊すとデプロイが失敗します。その場合、本番は前のバージョンのまま残るので安全です。",
+    "組み立て順: reset → mediumAngle → ground → props → wordmark → productPlacement → extras(手打ち) → composition(用途) → light → texture → fidelity → negatives(共通) → format(用途)",
+    "status: confirmed=実生成で検証済み / candidate=未検証 / pending-approval=本社確認待ち（実運用しない）",
+    "suitablePurposes: そのテイストを表示する用途のid（purposes.json）。ig / ig_story / ec_hero。EC商品画像(ec_square)は用途側が背景を全部決めるためテイストは使いません。"
+  ],
+  "tones": [
+    {
+      "id": "pr01",
+      "label": "PR-01 標準形：コットン巾着＋白大理石",
+      "note": "チューブ系全商品の標準ビジュアル。2026-09-09に狙いどおりの1枚が出た確定形。",
+      "recommendedFor": [
+        "tube"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not reuse the attached images as compositions — discard their backgrounds, their rounded corners, their studio lighting, their camera angles and their carton boxes entirely. The carton boxes must not appear. The attached images are only locked references for the products themselves.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone from above a table — honest and a little imperfect, not a professional studio shot. The camera looks down from a high angle that is close to overhead but noticeably tilted, so the scene is seen slightly obliquely rather than perfectly square to the surface.",
+        "ground": "The surface is a white marble slab with soft grey veining. Filling the left two thirds of the frame is a crumpled cream-coloured cotton drawstring pouch of coarse plain weave, its gathered top, twisted cord and soft folds clearly visible.",
+        "props": "",
+        "wordmark": "Printed across the upper area of the pouch is a single line of text reading Pharmesthetic — spelled letter by letter as P, h, a, r, m, e, s, t, h, e, t, i, c, one capital P followed by twelve lowercase letters, thirteen letters in total and no other characters. It is set in a fine classical serif with generous letter spacing, spanning roughly half the width of the pouch, sitting on a flat well-lit area of cloth so it stays fully legible, screen-printed in soft dark navy ink that sinks into the weave. Do not add a second line, a tagline, a web address, a registered trademark symbol or any border around it. If you cannot spell it exactly, leave the pouch blank.",
+        "productPlacement": "Lying diagonally on the pouch, below the printed word, is {{PRODUCT}}, its printed face turned toward the camera, sinking very slightly into the soft cloth, its cap screwed on. Nothing else is in the frame — no boxes, no cards, no other products, no plants, no props.",
+        "light": "The light is soft, cool indoor daylight coming from the upper left, as if from a window on an overcast day, producing gentle low-contrast shadows toward the lower right under the tube and along the folds of the cloth. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      },
+      "status": "confirmed",
+      "suitablePurposes": [
+        "ig",
+        "ig_story",
+        "ec_hero"
+      ]
+    },
+    {
+      "id": "pr02",
+      "label": "PR-02 クラフト紙＋潰れたチューブ（情報密度型）",
+      "note": "ラベルの文字密度が資産の商材向き（グリーンボクシン等）。青×クラフト茶、橙×クラフト茶ともに補色で映える。",
+      "recommendedFor": [
+        "tube",
+        "dense-label"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not edit or reuse the attached image as a composition — discard its background, its rounded corners, its clean studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone from above a table at home — honest and a little imperfect, not a professional studio shot. The camera looks down at the surface from a high angle that is close to overhead but noticeably tilted, so the scene is seen slightly obliquely rather than perfectly square to the table.",
+        "ground": "Lying on a plain white table is a large sheet of brown recycled kraft paper, softly wrinkled, its torn ragged edge running across the lower right of the frame so that a corner of the bare white table shows through at the top left.",
+        "props": "The kraft paper is printed all over in black ink with dense, fine, small-set text arranged in narrow columns with thin horizontal rules — the printing must read purely as a texture of tiny illegible marks, with no readable words, no headlines, no names and no numbers anywhere.",
+        "wordmark": "",
+        "productPlacement": "Two identical units of the product lie on the kraft paper at a loose diagonal, roughly parallel to each other but slightly askew, one a little higher in the frame than the other, their printed faces turned toward the camera. Each one is {{PRODUCT}}. The first is full and pristine, holding its clean original shape. The second, identical one looks gently used, its surface showing the soft marks of real handling — a few natural creases where the material has given way — while its printed lettering remains completely intact and readable. It looks lived-in, never damaged, dirty or leaking. Both caps stay on. They overlap the printed paper so the black text runs behind and around them. Nothing else is in the frame — no box, no other products, no plants, no props.",
+        "light": "The light is soft, warm indoor daylight coming from one side, as if from a window on a bright day, producing gentle low-contrast shadows and a faintly warm cast across the paper. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette in the corners, and the small imperfections of an unedited snapshot."
+      },
+      "status": "candidate",
+      "suitablePurposes": [
+        "ig",
+        "ig_story"
+      ]
+    },
+    {
+      "id": "toneB",
+      "label": "トーンB：ボトル／ポンプ容器向け（立ち姿・自然光）",
+      "note": "俯瞰フラットレイが成立しないボトル・ポンプ容器用。正面やや見下ろしの立ち姿。",
+      "recommendedFor": [
+        "bottle",
+        "pump",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not reuse the attached image as a composition — discard its background, its rounded corners, its studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone at close range — honest and a little imperfect, not a professional studio shot. The camera is roughly at the height of the product and looks very slightly down at it, so the bottle is seen almost straight on with only a hint of the surface it stands on.",
+        "ground": "The product stands on a pale honed stone shelf with a soft matte finish, against a plain off-white plaster wall that falls gently out of focus behind it.",
+        "props": "A loosely folded length of natural undyed linen lies at the base on one side, its creases catching the light. Nothing else is in the frame — no boxes, no cards, no other products, no plants, no tools.",
+        "wordmark": "",
+        "productPlacement": "Standing upright slightly off-centre is {{PRODUCT}}, its printed face turned fully toward the camera so its lettering reads clearly, its cap or pump closed.",
+        "light": "The light is soft, cool indoor daylight coming from one side, as if from a window on an overcast day, grazing the surface of the container and producing a gentle low-contrast shadow that falls away to the opposite side. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: a shallow natural depth of field, slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      },
+      "status": "candidate",
+      "suitablePurposes": [
+        "ec_hero",
+        "ig"
+      ]
+    },
+    {
+      "id": "toneA",
+      "label": "トーンA：ミニマル・クリーン（規定色の静かな面）",
+      "note": "規定色4色のみ（navy #222C40／gold #998062／白／黒）。小道具なし。EC・資料用の静かな型。",
+      "recommendedFor": [
+        "tube",
+        "bottle",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not reuse the attached image as a composition — discard its background, its rounded corners, its studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph is a calm, restrained still life taken on a smartphone, looking down at the surface from a high angle that is close to overhead but noticeably tilted, so the scene is seen slightly obliquely rather than perfectly square.",
+        "ground": "The surface is a single uninterrupted plane of matte off-white paper with a faint tooth, evenly lit and free of pattern, colour cast or visible texture beyond the grain of the paper itself.",
+        "props": "Nothing else is in the frame — no cloth, no paper, no boxes, no cards, no other products, no plants, no props of any kind.",
+        "wordmark": "",
+        "productPlacement": "Placed alone and slightly off-centre is {{PRODUCT}}, resting naturally on the surface — lying at a relaxed diagonal if it is a tube, standing upright if it is a bottle or a jar — its printed face turned fully toward the camera, its cap or pump closed.",
+        "light": "The light is soft, neutral indoor daylight coming from the upper left, producing one gentle low-contrast shadow toward the lower right. No hard flash, no rim light, no studio lighting, no coloured light of any kind.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, and the small imperfections of an unedited snapshot."
+      },
+      "status": "candidate",
+      "suitablePurposes": [
+        "ec_hero",
+        "ig"
+      ]
+    },
+    {
+      "id": "toneC",
+      "label": "トーンC：情緒・季節感（布・紙・乾いた植物）",
+      "note": "季節訴求・情緒枠（マホロサ等）。生花は避け、乾いた植物・布・紙に限定（効能暗示を避けるため）。",
+      "recommendedFor": [
+        "bottle",
+        "tube",
+        "seasonal"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not reuse the attached image as a composition — discard its background, its rounded corners, its studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone from above a table — honest and a little imperfect, not a professional studio shot. The camera looks down from a high angle that is close to overhead but noticeably tilted, so the scene is seen slightly obliquely.",
+        "ground": "The surface is an aged pale wooden table with a soft worn grain, partly covered by a sheet of thick cream cotton-rag paper with a deckled edge.",
+        "props": "A single dried stem with pale muted foliage lies at a relaxed angle beside the paper, along with one softly crumpled length of undyed linen. All of it is dry, faded and restrained in colour. Nothing else is in the frame — no boxes, no cards, no other products, no fresh flowers, no tools.",
+        "wordmark": "",
+        "productPlacement": "Resting on the cotton-rag paper is {{PRODUCT}} — lying at a relaxed diagonal if it is a tube, standing upright if it is a bottle or a jar — its printed face turned fully toward the camera, its cap or pump closed.",
+        "light": "The light is soft, warm late-afternoon daylight coming from one side, as if filtered through a thin curtain, producing gentle long low-contrast shadows across the paper and the grain of the wood. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      },
+      "status": "candidate",
+      "suitablePurposes": [
+        "ig",
+        "ig_story"
+      ]
+    },
+    {
+      "id": "macro",
+      "label": "寄りマクロ：キャップと肩の質感に寄る",
+      "note": "ストーリー・抽象カット向け。印刷面はピントを外して文字化けリスクを避ける設計。",
+      "status": "candidate",
+      "suitablePurposes": [
+        "ig_story",
+        "ig"
+      ],
+      "recommendedFor": [
+        "tube",
+        "bottle",
+        "pump",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not edit or reuse the attached image as a composition — discard its background, its rounded corners, its clean studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph is an extremely close, casual snapshot taken on a smartphone from a low three-quarter angle, so close that only the upper part of the product fills the frame and the rest of it runs out of the bottom edge. It is honest and a little imperfect, not a professional studio shot.",
+        "ground": "The product rests on a white marble slab with soft grey veining, of which only a narrow band is visible behind it, falling completely out of focus.",
+        "props": "Nothing else is in the frame — no boxes, no cards, no other products, no plants, no props.",
+        "wordmark": "",
+        "productPlacement": "Filling most of the frame is the cap and shoulder of {{PRODUCT}}, seen from close range and slightly from the side. The cap and the shoulder are the sharpest part of the picture. The printed area of the body falls away into a soft, unreadable blur, so no lettering needs to be legible anywhere in the image.",
+        "light": "The light is soft, cool indoor daylight arriving from one side and grazing across the surface of the container, picking out the fine texture of the material and the thread of the cap, and producing a gentle low-contrast shadow that falls away to the opposite side. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph taken very close up, not a 3D render, not a mockup and not a composite: a very shallow natural depth of field, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      }
+    },
+    {
+      "id": "hardshadow",
+      "label": "硬い影：ブラインド越しの直射でグラフィックに",
+      "note": "夏・告知向け。日光を想起させるためSPF商材（ファイナルバーム）では使用不可。",
+      "status": "candidate",
+      "suitablePurposes": [
+        "ig",
+        "ig_story",
+        "ec_hero"
+      ],
+      "recommendedFor": [
+        "tube",
+        "bottle",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not edit or reuse the attached image as a composition — discard its background, its rounded corners, its clean studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone from above a table — honest and a little imperfect, not a professional studio shot. The camera looks down from a high angle that is close to overhead but noticeably tilted, so the scene is seen slightly obliquely.",
+        "ground": "The surface is a plain matte off-white plaster shelf, entirely free of pattern or ornament.",
+        "props": "Falling across the surface are the clean parallel bands of shadow cast by a slatted blind just out of frame, running diagonally over the shelf and across part of the product. Nothing physical is in the frame besides the product — no boxes, no cards, no other products, no plants, no props.",
+        "wordmark": "",
+        "productPlacement": "Placed off-centre, with the bands of light and shadow falling across it, is {{PRODUCT}} — lying at a relaxed diagonal if it is a tube, standing upright if it is a bottle or a jar — its printed face turned fully toward the camera and held within a band of light so its lettering stays clearly legible, its cap or pump closed.",
+        "light": "The light is bright, neutral daylight coming from one side through the slatted blind, producing crisp, clearly defined shadow bands with soft edges, and a single firm shadow from the product itself. The overall colour stays neutral and unwarmed. No flash, no rim light, no studio lighting, no coloured light.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      }
+    },
+    {
+      "id": "washi",
+      "label": "和紙・生成り：障子越しの拡散光",
+      "note": "日本市場・冬／正月・季節訴求向け。落ち着いた和の静物。",
+      "status": "candidate",
+      "suitablePurposes": [
+        "ig",
+        "ig_story",
+        "ec_hero"
+      ],
+      "recommendedFor": [
+        "tube",
+        "bottle",
+        "pump",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not edit or reuse the attached image as a composition — discard its background, its rounded corners, its clean studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone from above a low table — honest and a little imperfect, not a professional studio shot. The camera looks down from a high angle that is close to overhead but noticeably tilted, so the scene is seen slightly obliquely.",
+        "ground": "The surface is a pale unfinished wooden board with a fine straight grain. Laid across it at a slight angle is a sheet of handmade Japanese washi paper in a natural undyed tone, its visible plant fibres and soft deckled edge catching the light.",
+        "props": "A single small stone with a smooth matte surface sits quietly at one side as a paperweight. Nothing else is in the frame — no boxes, no cards, no other products, no fresh flowers, no tools.",
+        "wordmark": "",
+        "productPlacement": "Resting on the washi paper is {{PRODUCT}} — lying at a relaxed diagonal if it is a tube, standing upright if it is a bottle or a jar — its printed face turned fully toward the camera, its cap or pump closed.",
+        "light": "The light is soft, even daylight diffused as if through a paper shoji screen, arriving from one side and producing very gentle, almost shadowless modelling with the faintest cool cast. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      }
+    },
+    {
+      "id": "salon",
+      "label": "サロン什器：木のトレイ＋リネン",
+      "note": "マスター／セラー配布素材向け。施術室の什器を想起させるが、人・肌・器具は一切写さない。",
+      "status": "candidate",
+      "suitablePurposes": [
+        "ec_hero",
+        "ig"
+      ],
+      "recommendedFor": [
+        "tube",
+        "bottle",
+        "pump",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not edit or reuse the attached image as a composition — discard its background, its rounded corners, its clean studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone from above a side table — honest and a little imperfect, not a professional studio shot. The camera looks down from a high angle that is close to overhead but noticeably tilted, so the scene is seen slightly obliquely.",
+        "ground": "The surface is a dark stained wooden side table. Sitting on it, filling most of the frame, is a shallow oval tray of pale wood with a soft matte finish.",
+        "props": "Inside the tray, a neatly folded length of undyed linen cloth lies along one side, its edge softly rumpled. Nothing else is in the frame — no boxes, no cards, no other products, no plants, no tools, no instruments of any kind.",
+        "wordmark": "",
+        "productPlacement": "Set inside the tray beside the folded cloth is {{PRODUCT}} — lying at a relaxed diagonal if it is a tube, standing upright if it is a bottle or a jar — its printed face turned fully toward the camera, its cap or pump closed.",
+        "light": "The light is soft, warm indoor light coming from one side, as if from a shaded lamp in a quiet room, producing gentle low-contrast shadows across the tray and the grain of the table. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      }
+    },
+    {
+      "id": "lineup",
+      "label": "ライン整列：複数SKUを1列に並べる",
+      "note": "ライン訴求・EC向け。商品マスタの appearance を複数書くか、参照画像を複数添付して使う。",
+      "status": "candidate",
+      "suitablePurposes": [
+        "ec_hero",
+        "ig"
+      ],
+      "recommendedFor": [
+        "tube",
+        "bottle",
+        "pump",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not reuse the attached images as compositions — discard their backgrounds, their rounded corners, their studio lighting, their camera angles and their carton boxes entirely. The carton boxes must not appear. The attached images are only locked references for the products themselves.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone, the camera held almost level with the surface and looking very slightly down at it, so the row of products is seen close to straight on.",
+        "ground": "The surface is a plain matte off-white plaster shelf, entirely free of pattern or ornament, meeting a wall of the same tone that falls gently out of focus behind it.",
+        "props": "Nothing else is in the frame — no boxes, no cards, no cloth, no plants, no props.",
+        "wordmark": "",
+        "productPlacement": "Standing in a single even row across the middle of the frame, evenly spaced and all facing forward, are the products: {{PRODUCT}}. Each one is turned so its printed face is fully toward the camera and its lettering reads clearly, and each has its cap or pump closed. The row is slightly off-centre, with a little more empty shelf on one side than the other.",
+        "light": "The light is soft, cool indoor daylight coming from one side, producing gentle low-contrast shadows that all fall in the same direction behind the row. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      }
+    },
+    {
+      "id": "navy",
+      "label": "紺の面：ブランドカラーを地にする【本社確認待ち】",
+      "note": "★『背景navy・彩度は商品のみ』の運用解釈が本社確認待ち。承認が下りるまで実運用しないこと。",
+      "status": "pending-approval",
+      "suitablePurposes": [
+        "ec_hero",
+        "ig"
+      ],
+      "recommendedFor": [
+        "tube",
+        "bottle",
+        "pump",
+        "jar"
+      ],
+      "blocks": {
+        "reset": "Create a completely new photograph. Do not edit or reuse the attached image as a composition — discard its background, its rounded corners, its clean studio lighting, its camera angle and its carton box entirely. The carton box must not appear. The attached image is only a locked reference for the product itself.",
+        "mediumAngle": "The photograph looks like a calm, restrained snapshot taken on a smartphone from directly above a table, the camera looking down at the surface close to square on with only a slight tilt.",
+        "ground": "The surface is one uninterrupted plane of deep matte navy, the colour of dark indigo ink, with a very fine paper-like tooth and no pattern, gradient or reflection of any kind.",
+        "props": "Nothing else is in the frame — no cloth, no paper, no boxes, no cards, no other products, no plants, no props. The navy plane is the only environment.",
+        "wordmark": "",
+        "productPlacement": "Placed alone and slightly off-centre on the navy plane is {{PRODUCT}}, which is the only thing in the picture carrying any colour of its own. It rests naturally on the surface — lying at a relaxed diagonal if it is a tube, standing upright if it is a bottle or a jar — its printed face turned fully toward the camera, its cap or pump closed.",
+        "light": "The light is soft, neutral daylight arriving from the upper left, producing one gentle low-contrast shadow toward the lower right and letting the navy surface stay even and unlit by any highlight. No hard flash, no rim light, no studio lighting, no coloured light, no gold or metallic sheen anywhere in the scene.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      }
+    },
+    {
+      "id": "pr04",
+      "label": "PR-04 背景プレートのみ（商品を後から合成）",
+      "note": "商品を生成させないため改変リスクはゼロ。生成後、商品画像を切り抜いて90°回転させて載せる。",
+      "status": "confirmed",
+      "suitablePurposes": [
+        "ig",
+        "ig_story",
+        "ec_hero"
+      ],
+      "recommendedFor": [
+        "composite"
+      ],
+      "blocks": {
+        "reset": "Create a photorealistic top-down photograph of an empty surface, intended as a background plate for later product compositing, so the scene must be completely empty of products: no tubes, no bottles, no jars, no packaging and no cosmetics of any kind anywhere in the frame.",
+        "mediumAngle": "The photograph looks like a casual, unstyled snapshot taken on a smartphone from above a table. The camera looks down from a high angle that is close to overhead but noticeably tilted, so the surface is seen slightly obliquely rather than perfectly square.",
+        "ground": "The surface is a white marble slab with soft grey veining. Filling the left two thirds of the frame is a crumpled cream-coloured cotton drawstring pouch of coarse plain weave, its gathered top, twisted cord and soft folds clearly visible, completely unprinted and unbranded — no logo and no lettering of any kind on the fabric.",
+        "props": "A quiet, uncluttered area of bare marble occupies the upper right of the frame. Leave a clear, well-lit, relatively flat area on the pouch in the centre of the image where a product will be placed later.",
+        "wordmark": "",
+        "productPlacement": "",
+        "light": "The light is soft, cool indoor daylight coming from the upper left, as if from a window on an overcast day, producing gentle low-contrast shadows toward the lower right along the folds of the cloth. No hard flash, no rim light, no studio lighting.",
+        "texture": "The image must look like a real phone photograph, not a 3D render, not a mockup and not a composite: slightly soft focus, mild grain, muted contrast, a faint natural vignette, and the small imperfections of an unedited snapshot."
+      }
+    }
+  ]
+}

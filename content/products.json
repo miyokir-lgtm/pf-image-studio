@@ -1,0 +1,177 @@
+{
+  "_readme": [
+    "商品マスタ。appearance（外観の英文）が生成の再現性を決める最重要項目です。",
+    "  ・appearance は『a small skincare tube with a saffron-orange body, ...』のように名詞句で書きます（文頭を大文字にしない／末尾にピリオドを打たない）。",
+    "  ・container: tube / bottle / pump / jar / vial / sachet / box / set。",
+    "  ・recommendedTone: tones.json の id。商品を選ぶと自動でこのテイストになります（手動変更可）。",
+    "  ・extraNegatives: その商品固有の禁止事項（英語）。共通の禁止句に追加されます。",
+    "  ・reproductionRisk: low / medium / high。パッケージの絵柄や文字の再現難度。",
+    "      high = イラストや細密な文字が主役 → 参照画像の添付を強く推奨、崩れるなら PR-04（背景プレート＋合成）へ。",
+    "  ・appearance が空の商品は『外観が未登録』として画面に注意が出ます。",
+    "新商品を足すときは、この配列に1件コピーして貼り、id を重複させずに書き換えます。",
+    "外観は 2026-09-13 に Pharmesthetic-ops の製品画像から起こしました（パッケージ改訂時は要更新）。"
+  ],
+  "products": [
+    {
+      "id": "vqm30",
+      "label": "ビバンクエントマンカ ローション（VQM）30ml",
+      "container": "tube",
+      "recommendedTone": "pr01",
+      "reproductionRisk": "low",
+      "appearance": "a small skincare tube with a saffron-orange body, a deep forest-green shoulder and a deep forest-green screw cap, its white lettering set in a very condensed bold face and rotated ninety degrees along the body",
+      "extraNegatives": []
+    },
+    {
+      "id": "cemenzal_light100",
+      "label": "セメンザル ライト 100ml",
+      "container": "tube",
+      "recommendedTone": "pr01",
+      "reproductionRisk": "low",
+      "appearance": "a white stand-up skincare tube printed in cobalt blue, reading Cemenzal Light and High Potency Cream 100 near the top with a block of very small ingredient text below it, its shoulder tinted pale blue and its flat stand-up cap a deep navy blue",
+      "extraNegatives": []
+    },
+    {
+      "id": "cemenzal50",
+      "label": "セメンザル クリーム 50ml（ジャー）",
+      "container": "jar",
+      "recommendedTone": "toneB",
+      "reproductionRisk": "medium",
+      "appearance": "a squat cylindrical jar of pale blue frosted plastic with a brushed silver metal screw lid, wrapped around the body with a dark navy label reading Cemenzal and High Potency Cream in white",
+      "extraNegatives": []
+    },
+    {
+      "id": "greenboxin150",
+      "label": "グリーンボクシン 150ml",
+      "container": "bottle",
+      "recommendedTone": "pr02",
+      "reproductionRisk": "medium",
+      "appearance": "a tall translucent free-standing bottle holding a pale mint-green gel, wrapped in a cream label densely printed in green reading Greenboxin and Gel Type Skin Solution with a small green tree mark at the lower right, closed with a translucent flip cap",
+      "extraNegatives": ["Do not show ice, snow, frost or any cold compress."]
+    },
+    {
+      "id": "greenboxin_strong65",
+      "label": "グリーンボクシン ストロング 65ml",
+      "container": "bottle",
+      "recommendedTone": "pr02",
+      "reproductionRisk": "medium",
+      "appearance": "a small translucent squeeze bottle holding a pale green gel, wrapped in a cream label densely printed in green with a small green tree mark, with a dark green flip cap",
+      "extraNegatives": ["Do not show ice, snow, frost or any cold compress."]
+    },
+    {
+      "id": "mahorosa100",
+      "label": "マホロサ クリームミスト 100ml",
+      "container": "pump",
+      "recommendedTone": "toneB",
+      "reproductionRisk": "high",
+      "appearance": "a slim frosted bottle in a pale peach nude tone with a bright orange pump cap, printed at the centre with a small white engraved-style rose and a single orange-red droplet beneath it, and the word Mahorosa in orange near the shoulder — the rose and the droplet must stay pixel-faithful",
+      "extraNegatives": []
+    },
+    {
+      "id": "final_balm",
+      "label": "ファイナルバーム（Final Balm）30ml",
+      "container": "tube",
+      "recommendedTone": "pr01",
+      "reproductionRisk": "low",
+      "appearance": "a stand-up skincare tube in a graded cobalt-to-sky blue, printed in white with a large numeral 30 at the top and the words Final Balm and S.P.U Multi Balm running vertically down the body together with SPF50+ PA+++, closed with a translucent blue stand-up cap",
+      "extraNegatives": [
+        "Do not show the sun, sunlight flare, a beach, sand, the sea, a pool or any suggestion of sunbathing or tanning."
+      ]
+    },
+    {
+      "id": "finish_lotion20",
+      "label": "フィニッシュローション 20g",
+      "container": "tube",
+      "recommendedTone": "pr01",
+      "reproductionRisk": "low",
+      "appearance": "a small slender white tube printed in blue, reading Finish Lotion and Broad Spectrum SPF30, with a blue square at the sealed end carrying the numeral 20, and a plain white screw cap",
+      "extraNegatives": [
+        "Do not show the sun, sunlight flare, a beach, sand, the sea, a pool or any suggestion of sunbathing or tanning."
+      ]
+    },
+    {
+      "id": "rutina15",
+      "label": "ルティナー（Routiner）15ml",
+      "container": "jar",
+      "recommendedTone": "toneB",
+      "reproductionRisk": "medium",
+      "appearance": "a very small squat jar with a ribbed silver-grey screw lid, its body wrapped in a pale label reading AXENDA in small type above the word Routiner set large in red-orange, with the line Dark spot solution sleeping pack and Net 15mL below it",
+      "extraNegatives": []
+    },
+    {
+      "id": "blueblood20",
+      "label": "ブルーブラッド（Blue Blood）20ml",
+      "container": "bottle",
+      "recommendedTone": "toneB",
+      "reproductionRisk": "high",
+      "appearance": "a small cream-white bottle with a tall pointed white dropper cap, its front carrying a naive illustrated scene — a yellow sun with rays above a red heart resting on orange earth, framed by low green bushes — with the words Blue Blood set in bold blue letters across the middle and Net wt 20mL below; the illustration must stay pixel-faithful",
+      "extraNegatives": []
+    },
+    {
+      "id": "nigimi30",
+      "label": "ニギミボンム（Nigimi Bommme）30ml",
+      "container": "tube",
+      "recommendedTone": "pr01",
+      "reproductionRisk": "high",
+      "appearance": "a white stand-up tube covered from top to bottom in a dense black-and-white engraving of a moth with open wings surrounded by botanical foliage, the words Nigimi Bommme printed across the middle in an orange serif with Net wt 30ml beneath, a striped black-and-white band across the sealed top and a plain white stand-up cap; the engraving must stay pixel-faithful",
+      "extraNegatives": []
+    },
+    {
+      "id": "cemenstick6",
+      "label": "セメンスティック 6ml",
+      "container": "sachet",
+      "recommendedTone": "toneA",
+      "reproductionRisk": "medium",
+      "appearance": "a small flat sachet of bright sky blue with softly rounded corners, carrying a paler blue label panel printed in navy that reads CONAPIDIL, CemenStick and Super Scalp&Polishing Stick above a block of very small ingredient text, with 6mL at the lower left",
+      "extraNegatives": []
+    },
+    {
+      "id": "carmen_sheet",
+      "label": "カルメンシート（CalmenSheet）50枚",
+      "container": "box",
+      "recommendedTone": "toneA",
+      "reproductionRisk": "medium",
+      "appearance": "a flat rectangular pack of bright sky blue standing on one edge, its face printed in white and navy with the word CalmenSheet and the line 50 sheets, a row of small perforation marks running down each side",
+      "extraNegatives": [
+        "Do not show beakers, flasks, pipettes, laboratory glassware, metal instrument trays or any clinical apparatus."
+      ]
+    },
+    {
+      "id": "mintavi20",
+      "label": "ミンタビ 20（MINTAVI）",
+      "container": "vial",
+      "recommendedTone": "toneB",
+      "reproductionRisk": "medium",
+      "appearance": "a small amber glass vial with a slender neck and a dark screw cap, wrapped in a bright orange label printed in dark brown with the word MINTAVI and a volume mark, standing beside its narrow deep-purple carton",
+      "extraNegatives": []
+    },
+    {
+      "id": "superjection_seawater",
+      "label": "スーパージェクション シーウォーター 5ml",
+      "container": "vial",
+      "recommendedTone": "toneB",
+      "reproductionRisk": "medium",
+      "appearance": "a small clear glass vial with a brushed silver neck ring and a flat black cap, wrapped in a white label printed in blue reading SUPERJECTION and Sea Water with a small wave motif and the volume 5mL",
+      "extraNegatives": [
+        "Do not show syringes, needles, injection devices, ampoule snappers or any medical apparatus."
+      ]
+    },
+    {
+      "id": "set_hariTsuya",
+      "label": "ハリ艶セット（VQM 30ml ＋ セメンザル ライト 100ml）",
+      "container": "tube",
+      "recommendedTone": "pr01",
+      "reproductionRisk": "low",
+      "appearance": "a larger white stand-up tube printed in cobalt blue with a deep navy flat cap, and beside it a smaller tube with a saffron-orange body, a deep forest-green shoulder and a deep forest-green screw cap, the two lying at slightly different angles so they are not parallel, the smaller one about two thirds the length of the larger one and set a little toward the right edge so the larger tube stays the main subject",
+      "extraNegatives": []
+    },
+    {
+      "id": "other",
+      "label": "その他（外観を手入力）",
+      "container": "tube",
+      "recommendedTone": "pr01",
+      "reproductionRisk": "medium",
+      "appearance": "",
+      "extraNegatives": []
+    }
+  ]
+}

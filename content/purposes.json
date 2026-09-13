@@ -1,0 +1,149 @@
+{
+  "_readme": [
+    "用途（出力先）のマスタ。用途は variants（バリエーション）を持ちます。",
+    "  ・size: 画像生成APIに渡すサイズ。1024x1024 / 1024x1536 / 1536x1024 のいずれか。",
+    "  ・composition: 構図と余白の指示。VI規定『ロゴ・コピー用の余白を1辺に20%以上』を必ず含めること。",
+    "  ・format: 書き出しの指示（角丸なし・フルブリード など）。",
+    "  ・transparent: true にすると背景透過（PNG）で生成します。EC切り抜き用。",
+    "  ・overrides: テイストのブロックを上書きします。空文字にするとその段落を消します。",
+    "      EC用の無地背景や透過では、巾着や小道具といったテイスト側の演出を消す必要があるため使います。",
+    "  ・note: 画面に出る補足。仕上げのトリミング指示などを書きます。",
+    "新しいバリエーションを足すときは variants に1件コピーして貼り、id を重複させずに書き換えます。"
+  ],
+  "purposes": [
+    {
+      "id": "ig",
+      "label": "Instagram 投稿",
+      "variantLabel": "フォーマット",
+      "variants": [
+        {
+          "id": "square",
+          "label": "正方形 1:1（1080×1080 用）",
+          "size": "1024x1024",
+          "note": "生成後 1080×1080 に書き出し。主要素は中央60%に収まっています。",
+          "composition": "The composition is casual and slightly off-centre, with the main element cut by one edge of the frame. Keep the main subject within the central sixty percent of the frame so the image survives a later crop, and leave at least a fifth of the frame — the upper right — as a quiet, even area of bare surface reserved for a wordmark or a line of copy that will be added afterwards.",
+          "format": "Deliver a full-bleed square photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners."
+        },
+        {
+          "id": "portrait45",
+          "label": "縦長 4:5（1080×1350 用）",
+          "size": "1024x1536",
+          "note": "2:3で生成 → 上下を少し落として 4:5（1080×1350）に書き出します。",
+          "composition": "The composition is vertical and casual. The main subject sits in the middle band of the frame, well inside the top and bottom eighth so the picture survives a later crop to a slightly squarer shape, and the upper fifth of the frame stays a quiet, even area of bare surface reserved for a wordmark or a line of copy that will be added afterwards.",
+          "format": "Deliver a full-bleed vertical photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners."
+        }
+      ]
+    },
+    {
+      "id": "ig_story",
+      "label": "Instagram ストーリー／リール",
+      "variantLabel": "フォーマット",
+      "variants": [
+        {
+          "id": "story",
+          "label": "縦長 9:16（1080×1920 用）",
+          "size": "1024x1536",
+          "note": "生成後 1080×1920 に書き出し。上下の余白がUIと重なる領域です。",
+          "composition": "The composition is vertical and casual. The main subject sits in the middle band of the frame. Keep the top fifteen percent and the bottom twenty percent quiet and free of any important element, so interface overlays and the text added later do not collide with the subject.",
+          "format": "Deliver a full-bleed vertical photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners."
+        }
+      ]
+    },
+    {
+      "id": "ec_square",
+      "label": "EC 商品画像（正方形）",
+      "variantLabel": "背景",
+      "variants": [
+        {
+          "id": "transparent",
+          "label": "背景透過（切り抜き）",
+          "size": "1024x1024",
+          "transparent": true,
+          "note": "商品だけを切り抜いた状態で出力します。テイストの演出は付きません。ShopifyのEC商品画像用。",
+          "composition": "The product is centred in the frame, upright and square to the camera, filling roughly seventy percent of the height with even empty margin on every side.",
+          "format": "Deliver the product alone on a fully transparent background, with clean, sharp edges all the way round and no cast shadow, no reflection, no ground plane and no backdrop of any kind.",
+          "overrides": {
+            "ground": "",
+            "props": "",
+            "wordmark": "",
+            "mediumAngle": "A clean, evenly lit product photograph of a single item, seen straight on from the front at eye level, with no perspective distortion.",
+            "productPlacement": "The only object in the picture is {{PRODUCT}}, shown complete from cap to base, its printed face turned fully toward the camera so its lettering reads clearly, its cap or pump closed.",
+            "light": "The light is soft, neutral and completely even, wrapping the product from both sides so that every part of its printing is legible and no part falls into deep shadow. No coloured light, no hard highlight, no flare.",
+            "texture": "The product is rendered sharply in focus from top to bottom, true to its real colours, with no grain, no vignette and no stylistic filter."
+          }
+        },
+        {
+          "id": "white",
+          "label": "白背景",
+          "size": "1024x1024",
+          "note": "最も汎用的。Shopifyの一覧でも浮きません。",
+          "composition": "The product is centred in the frame, upright and square to the camera, filling roughly two thirds of the height with generous, even empty space on every side.",
+          "format": "Deliver a full-bleed square photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners.",
+          "overrides": {
+            "ground": "The product stands on a seamless pure white surface that curves up into a pure white background, with no visible horizon line, no texture and no pattern.",
+            "props": "Nothing else is in the frame — no cloth, no paper, no boxes, no cards, no other products, no plants, no props of any kind.",
+            "wordmark": "",
+            "mediumAngle": "A clean, evenly lit product photograph of a single item, seen straight on from the front at eye level, with no perspective distortion.",
+            "light": "The light is soft, neutral and even, arriving from both sides so that every part of the printing is legible, leaving only a faint, soft contact shadow directly beneath the product. No coloured light, no hard highlight, no flare.",
+            "texture": "The product is rendered sharply in focus from top to bottom, true to its real colours, with only the faintest grain and no vignette or stylistic filter."
+          }
+        },
+        {
+          "id": "navy",
+          "label": "紺背景 #222C40【本社確認待ち】",
+          "size": "1024x1024",
+          "note": "★『背景navy・彩度は商品のみ』の運用解釈が本社確認待ちです。承認が下りるまで実運用しないでください。",
+          "composition": "The product is centred in the frame, upright and square to the camera, filling roughly two thirds of the height with generous, even empty space on every side.",
+          "format": "Deliver a full-bleed square photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners.",
+          "overrides": {
+            "ground": "The product stands on a seamless deep matte navy surface, the colour of dark indigo ink, that curves up into a background of the same navy, with no visible horizon line, no gradient, no texture and no reflection.",
+            "props": "Nothing else is in the frame — no cloth, no paper, no boxes, no cards, no other products, no plants, no props of any kind.",
+            "wordmark": "",
+            "mediumAngle": "A clean, evenly lit product photograph of a single item, seen straight on from the front at eye level, with no perspective distortion.",
+            "light": "The light is soft, neutral and even, arriving from both sides so that every part of the printing is legible, leaving only a faint, soft contact shadow directly beneath the product, and leaving the navy field unbroken by any highlight. No coloured light, no gold or metallic sheen, no hard highlight, no flare.",
+            "texture": "The product is rendered sharply in focus from top to bottom, true to its real colours, with only the faintest grain and no vignette or stylistic filter."
+          }
+        },
+        {
+          "id": "black",
+          "label": "黒背景",
+          "size": "1024x1024",
+          "note": "締めの1枚に。パッケージが濃色の商品では沈むので注意。",
+          "composition": "The product is centred in the frame, upright and square to the camera, filling roughly two thirds of the height with generous, even empty space on every side.",
+          "format": "Deliver a full-bleed square photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners.",
+          "overrides": {
+            "ground": "The product stands on a seamless matte black surface that curves up into a black background, with no visible horizon line, no gradient, no texture and no reflection.",
+            "props": "Nothing else is in the frame — no cloth, no paper, no boxes, no cards, no other products, no plants, no props of any kind.",
+            "wordmark": "",
+            "mediumAngle": "A clean, evenly lit product photograph of a single item, seen straight on from the front at eye level, with no perspective distortion.",
+            "light": "The light is soft and even, arriving from both sides so that every edge of the product separates clearly from the black field and every part of the printing stays legible. No coloured light, no hard highlight, no flare.",
+            "texture": "The product is rendered sharply in focus from top to bottom, true to its real colours, with only the faintest grain and no vignette or stylistic filter."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ec_hero",
+      "label": "EC メインビジュアル",
+      "variantLabel": "デバイス",
+      "variants": [
+        {
+          "id": "pc",
+          "label": "PC（横長 3:2）",
+          "size": "1536x1024",
+          "note": "見出しは右半分に載せる前提。左1/3に被写体を寄せています。",
+          "composition": "The composition is horizontal and calm, with the subject held to the left third of the frame and the entire right half left as a quiet, even area of bare surface reserved for a headline that will be added later. Nothing crosses into that empty half, and nothing is cut by the right edge.",
+          "format": "Deliver a full-bleed landscape photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners."
+        },
+        {
+          "id": "sp",
+          "label": "スマートフォン（縦長 2:3）",
+          "size": "1024x1536",
+          "note": "見出しは上部に載せる前提。被写体を下寄りに置いています。",
+          "composition": "The composition is vertical and calm, with the subject sitting in the lower two thirds of the frame and the entire upper third left as a quiet, even area of bare surface reserved for a headline that will be added later. Nothing crosses into that empty third.",
+          "format": "Deliver a full-bleed vertical photograph with sharp square corners, edge to edge — no border, no frame, no rounded corners."
+        }
+      ]
+    }
+  ]
+}

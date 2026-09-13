@@ -1,0 +1,150 @@
+{
+  "_readme": [
+    "全生成に共通で付く固定ブロックと、手打ち欄の注意喚起に使うNGワード辞書。",
+    "  ・brandCore はブランド理念とVI規定から起こした、全テイスト共通の世界観の宣言です。プロンプトの冒頭近くに必ず入ります。",
+    "  ・negatives / fidelity は毎回プロンプトの末尾近くに必ず付きます。ブランドGLと薬機法の担保はここが要。",
+    "  ・extras は『追加要素』のチップ。label が画面に出て、text が英文としてプロンプトに入ります。",
+    "  ・ngWords は手打ち欄の警告用。生成はブロックしません（判断は人に残す方針）。"
+  ],
+  "fidelity": "Reproduce the product exactly as it appears in the attached reference and do not alter it: the same body colour, the same printed lettering in the same sizes, weights, rotations and positions, the same shoulder, the same silhouette and proportions, and the same cap. Do not re-letter, re-typeset, translate, re-colour or restyle any part of the packaging, and do not invent extra wording or symbols. If it cannot be reproduced accurately, show the scene without the product rather than an approximation.",
+  "fidelityNoRef": "Reproduce the product exactly as described and do not embellish it: do not invent extra wording, symbols, seals or marks on the packaging, and do not re-colour or restyle it. If it cannot be reproduced accurately, show the scene without the product rather than an approximation.",
+  "negatives": "Do not add any other text, captions, headlines, copy, labels, badges, seals, stickers, price tags, percentages, logos, brand marks or watermarks anywhere in the image — the only lettering permitted is the product's own printing. Do not show faces, hands, skin, the application of any product to skin, before-and-after comparisons, syringes, needles, pills, laboratory glassware, medical equipment, ice or snow, or any suggestion of sunbathing, beaches or tanning.",
+  "extras": [
+    {
+      "id": "dried_stem",
+      "label": "乾いた植物を1本添える",
+      "text": "A single dried stem with pale muted foliage lies at a relaxed angle beside the main subject, dry and faded in colour."
+    },
+    {
+      "id": "linen",
+      "label": "リネン布を添える",
+      "text": "A softly crumpled length of natural undyed linen lies at one side of the frame, its creases catching the light."
+    },
+    {
+      "id": "kraft_card",
+      "label": "無地のクラフト紙を敷く",
+      "text": "A small sheet of plain brown kraft paper lies under the main subject at a slight angle, completely unprinted and blank."
+    },
+    {
+      "id": "warm_light",
+      "label": "光を少し温かみのある調子に",
+      "text": "The daylight carries a faint warm cast, as if the afternoon sun were filtered through a thin curtain, while staying soft and low in contrast."
+    },
+    {
+      "id": "cool_light",
+      "label": "光を澄んだ冷たい調子に",
+      "text": "The daylight is cool and clean, as if from a north-facing window, staying soft and low in contrast."
+    },
+    {
+      "id": "more_space",
+      "label": "余白を広めにとる",
+      "text": "Leave a noticeably wider quiet area of bare surface around the subject than usual, so the frame feels calm and uncrowded."
+    },
+    {
+      "id": "closer",
+      "label": "寄りで大きく写す",
+      "text": "Move in closer so the main subject fills more of the frame and the printing on it is large and clearly legible."
+    },
+    {
+      "id": "used_look",
+      "label": "使いかけの風合いを出す",
+      "text": "The lower third of the tube body is softly creased with a few natural wrinkles and a slight flattening toward the sealed base, catching the light along those folds, while all of its printing stays intact and legible. It looks lived-in, never damaged, dirty or leaking."
+    },
+    {
+      "id": "two_items",
+      "label": "同じ商品を2本並べる",
+      "text": "A second, identical unit of the same product lies beside the first at a slightly different angle so the two are not parallel, the first one remaining the main subject."
+    }
+  ],
+  "ngWords": [
+    {
+      "word": "肌",
+      "reason": "肌・塗布の描写は効能暗示にあたるため画像に入れられません"
+    },
+    {
+      "word": "塗",
+      "reason": "塗布シーンは効能暗示にあたるため画像に入れられません"
+    },
+    {
+      "word": "手",
+      "reason": "手・指は規定により画像に入れられません"
+    },
+    {
+      "word": "顔",
+      "reason": "顔・人物は規定により画像に入れられません"
+    },
+    {
+      "word": "モデル",
+      "reason": "人物は規定により画像に入れられません"
+    },
+    {
+      "word": "ビフォー",
+      "reason": "ビフォーアフター表現は薬機法上使用できません"
+    },
+    {
+      "word": "アフター",
+      "reason": "ビフォーアフター表現は薬機法上使用できません"
+    },
+    {
+      "word": "効果",
+      "reason": "効能効果の暗示は薬機法上使用できません"
+    },
+    {
+      "word": "改善",
+      "reason": "効能効果の暗示は薬機法上使用できません"
+    },
+    {
+      "word": "治",
+      "reason": "医薬品的な表現は使用できません"
+    },
+    {
+      "word": "美白",
+      "reason": "薬機法上の制限表現です"
+    },
+    {
+      "word": "若返",
+      "reason": "薬機法上の制限表現です"
+    },
+    {
+      "word": "医療",
+      "reason": "医療機器・医療行為の想起は規定により避けます"
+    },
+    {
+      "word": "注射",
+      "reason": "医療器具は規定により画像に入れられません"
+    },
+    {
+      "word": "氷",
+      "reason": "氷・雪は鎮静作用の暗示にあたるため使用しません"
+    },
+    {
+      "word": "雪",
+      "reason": "氷・雪は鎮静作用の暗示にあたるため使用しません"
+    },
+    {
+      "word": "銀",
+      "reason": "銀は規定カラー外です（navy / gold #998062 / 白 / 黒 の4色。本社確認待ち）"
+    },
+    {
+      "word": "シルバー",
+      "reason": "銀は規定カラー外です（navy / gold #998062 / 白 / 黒 の4色。本社確認待ち）"
+    },
+    {
+      "word": "ロゴ",
+      "reason": "ロゴマークは生成させず、確定カットに後入れする運用です"
+    },
+    {
+      "word": "文字",
+      "reason": "画像内の文字は巾着のワードマーク以外入れられません（後入れ運用）"
+    },
+    {
+      "word": "太陽",
+      "reason": "SPF商材では日焼け想起を避けるため使用しません"
+    },
+    {
+      "word": "海",
+      "reason": "SPF商材では日焼け想起を避けるため使用しません"
+    }
+  ],
+  "brandCore": "The brand is a high-end curation platform for skincare professionals, and the picture must carry that character before anything else: quiet, restrained and evidently considered, never busy, never cheap and never promotional. Exactly one subject carries the frame, surrounded by generous empty space; there is no second focal point competing with it. The palette of the scene itself is achromatic — navy, off-white, stone, paper, plain cloth — and the ONLY saturated colours in the frame come from the product packaging itself. Use no red, yellow or fluorescent colour fields, no gold or metallic sheen in the setting, no gradients behind the subject, and nothing that reads as a sale, a discount or a shouted announcement."
+}
