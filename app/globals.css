@@ -110,3 +110,18 @@ select:focus, input:focus, textarea:focus { outline: 2px solid rgba(34,44,64,0.2
   linear-gradient(-45deg,transparent 75%,#e8e6e0 75%);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0; }
+
+/* ===== 素材ライブラリ ===== */
+.auto-img { display: block; margin-bottom: 4px; }
+.refs .thumb.locked { border-color: var(--navy); }
+.refs .thumb .badge { position: absolute; left: 0; bottom: 0; right: 0; background: rgba(34,44,64,0.82); color: #fff; font-size: 9px; text-align: center; letter-spacing: 0.06em; padding: 1px 0; }
+.library { border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-top: 10px; background: #fcfbf9; }
+.lib-head { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.lib-busy { color: var(--gold); }
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; max-height: 260px; overflow-y: auto; }
+.lib-item { position: relative; }
+.lib-pick { display: block; width: 100%; aspect-ratio: 1; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; cursor: pointer; }
+.lib-pick:hover { border-color: var(--navy); }
+.lib-pick img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.lib-name { font-size: 10px; color: var(--muted); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lib-del { position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; border-radius: 50%; border: none; background: rgba(0,0,0,0.6); color: #fff; font-size: 11px; line-height: 18px; padding: 0; cursor: pointer; }

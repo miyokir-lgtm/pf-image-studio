@@ -42,6 +42,23 @@ async function shrinkImage(file: File | Blob, maxPx: number, mime = "image/jpeg"
 
 const dataUrlToBlob = async (u: string) => (await fetch(u)).blob();
 
+type Asset = {
+  id: string;
+  name: string;
+  url: string;
+  category: string;
+  productId?: string;
+  toneId?: string;
+  source: "bundled" | "uploaded";
+};
+
+/** URL の画像を読み込んで dataURL にする（生成APIへは dataURL で渡す） */
+async function urlToDataUrl(url: string) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("画像を読み込めませんでした");
+  return shrinkImage(await res.blob(), 1024);
+}
+
 export default function Studio() {
   const router = useRouter();
 
@@ -56,6 +73,15 @@ export default function Studio() {
   const [freeText, setFreeText] = useState("");
   const [refs, setRefs] = useState<string[]>([]);
   const [useRefsForGen, setUseRefsForGen] = useState(true);
+
+  // ===== 素材ライブラリ =====
+  const [useProductImage, setUseProductImage] = useState(true);
+  const [productImg, setProductImg] = useState<string | null>(null);
+  const [assets, setAssets] = useState<Asset[]>([]);
+  const [canUpload, setCanUpload] = useState(false);
+  const [libOpen, setLibOpen] = useState(false);
+  const [libBusy, setLibBusy] = useState("");
+  const assetFileRef = useRef<HTMLInputElement>(null);
 
   // ===== 出力 =====
   const [prompt, setPrompt] = useState("");
@@ -89,6 +115,13 @@ export default function Studio() {
       .then((r) => r.json())
       .then(setCfg)
       .catch(() => {});
+    fetch("/api/assets")
+      .then((r) => r.json())
+      .then((j) => {
+        setAssets(j.items ?? []);
+        setCanUpload(!!j.canUpload);
+      })
+      .catch(() => {});
   }, []);
 
   const product = getProduct(productId);
@@ -104,6 +137,27 @@ export default function Studio() {
     if (!purpose.variants.some((v) => v.id === variantId)) setVariantId(purpose.variants[0].id);
   }, [purpose, variantId]);
 
+  // 商品の同梱画像を自動で参照画像にする
+  useEffect(() => {
+    let alive = true;
+    const src = useProductImage ? product.images?.[0] : undefined;
+    if (!src) {
+      setProductImg(null);
+      return;
+    }
+    urlToDataUrl(src)
+      .then((d) => {
+        if (alive) {
+          setProductImg(d);
+          setPromptEdited(false);
+        }
+      })
+      .catch(() => alive && setProductImg(null));
+    return () => {
+      alive = false;
+    };
+  }, [productId, useProductImage, product.images]);
+
   // 商品を変えたらテイストを推奨値に自動追従（手動変更後は追従しない）
   useEffect(() => {
     if (!toneTouched) setToneId(product.recommendedTone);
@@ -113,6 +167,11 @@ export default function Studio() {
   useEffect(() => {
     if (!availableTones.some((t) => t.id === toneId)) setToneId(availableTones[0].id);
   }, [availableTones, toneId]);
+
+  const allRefs = useMemo(
+    () => [productImg, ...refs].filter((x): x is string => !!x).slice(0, 4),
+    [productImg, refs],
+  );
 
   // ===== プロンプトは入力から即時に組み立て（API不使用） =====
   const composed = useMemo(
@@ -125,9 +184,9 @@ export default function Studio() {
         toneId,
         extraIds,
         freeText,
-        hasReference: refs.length > 0,
+        hasReference: allRefs.length > 0,
       }),
-    [productId, appearanceOverride, purposeId, variantId, toneId, extraIds, freeText, refs.length],
+    [productId, appearanceOverride, purposeId, variantId, toneId, extraIds, freeText, allRefs.length],
   );
 
   const editPrompt = useMemo(
@@ -163,11 +222,75 @@ export default function Studio() {
     setPromptEdited(false);
   }
 
+  /** 素材ライブラリから参照画像に追加 */
+  async function pickAsset(a: Asset) {
+    setLibBusy("読み込み中…");
+    try {
+      const d = await urlToDataUrl(a.url);
+      setRefs((r) => [...r, d].slice(0, 4));
+      setPromptEdited(false);
+      setLibBusy("");
+    } catch {
+      setLibBusy("この素材は読み込めませんでした");
+    }
+  }
+
+  /** 素材をライブラリに登録（Vercel Blob） */
+  async function uploadAssets(files: FileList | File[]) {
+    const list = Array.from(files).filter((f) => f.type.startsWith("image/"));
+    if (!list.length) return;
+    setLibBusy("アップロード中…");
+    try {
+      for (const f of list) {
+        const dataUrl = await shrinkImage(f, 1600, "image/webp", 0.88);
+        const res = await fetch("/api/assets", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: f.name.replace(/\.[^.]+$/, ""),
+            category: "scene",
+            dataUrl,
+          }),
+        });
+        const j = await res.json();
+        if (!res.ok) throw new Error(j.error || "アップロードに失敗しました");
+        setAssets((a) => [
+          ...a,
+          { id: j.id, name: j.name, url: j.url, category: j.category, source: "uploaded" },
+        ]);
+      }
+      setLibBusy("登録しました");
+      setTimeout(() => setLibBusy(""), 1500);
+    } catch (e) {
+      setLibBusy((e as Error).message);
+    }
+  }
+
+  async function removeAsset(a: Asset) {
+    if (a.source !== "uploaded") return;
+    setLibBusy("削除中…");
+    const res = await fetch("/api/assets", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: a.id }),
+    });
+    if (res.ok) {
+      setAssets((list) => list.filter((x) => x.id !== a.id));
+      setLibBusy("");
+    } else {
+      setLibBusy((await res.json()).error || "削除できませんでした");
+    }
+  }
+
   async function generate() {
     setErr("");
     setBusy(true);
     try {
-      const referenceImages = editBase ? [editBase, ...refs].slice(0, 4) : useRefsForGen ? refs : [];
+      const referenceImages = editBase
+        ? [editBase, ...allRefs].slice(0, 4)
+        : useRefsForGen
+          ? allRefs
+          : [];
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -433,17 +556,50 @@ export default function Studio() {
               </div>
             )}
 
-            <label className="f">参考画像の添付（商品写真・最大4枚）</label>
-            <div
-              className="drop"
-              onClick={() => fileRef.current?.click()}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => {
-                e.preventDefault();
-                addFiles(e.dataTransfer.files);
-              }}
-            >
-              クリックまたはドラッグ＆ドロップ（自動で1024pxに縮小）
+            <label className="f">参考画像（最大4枚）</label>
+
+            {product.images?.length > 0 && (
+              <label className="hint auto-img">
+                <input
+                  type="checkbox"
+                  checked={useProductImage}
+                  onChange={(e) => setUseProductImage(e.target.checked)}
+                />{" "}
+                この商品の登録画像を使う
+              </label>
+            )}
+
+            {allRefs.length > 0 && (
+              <div className="refs">
+                {productImg && (
+                  <div className="thumb locked" title="商品の登録画像">
+                    <img src={productImg} alt="商品の登録画像" />
+                    <span className="badge">商品</span>
+                  </div>
+                )}
+                {refs.map((r, i) => (
+                  <div className="thumb" key={i}>
+                    <img src={r} alt="" />
+                    <button
+                      onClick={() => {
+                        setRefs(refs.filter((_, j) => j !== i));
+                        setPromptEdited(false);
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="tools" style={{ marginTop: 8 }}>
+              <button className="btn secondary small" onClick={() => fileRef.current?.click()}>
+                この生成だけに使う画像を足す
+              </button>
+              <button className="btn secondary small" onClick={() => setLibOpen((v) => !v)}>
+                {libOpen ? "素材ライブラリを閉じる" : `素材ライブラリ（${assets.length}）`}
+              </button>
             </div>
             <input
               ref={fileRef}
@@ -453,34 +609,81 @@ export default function Studio() {
               hidden
               onChange={(e) => e.target.files && addFiles(e.target.files)}
             />
-            {refs.length > 0 && (
-              <>
-                <div className="refs">
-                  {refs.map((r, i) => (
-                    <div className="thumb" key={i}>
-                      <img src={r} alt="" />
-                      <button
-                        onClick={() => {
-                          setRefs(refs.filter((_, j) => j !== i));
-                          setPromptEdited(false);
-                        }}
-                      >
-                        ×
+
+            {libOpen && (
+              <div className="library">
+                <div className="lib-head">
+                  <span>クリックで参考画像に追加</span>
+                  {libBusy && <span className="lib-busy">{libBusy}</span>}
+                </div>
+                <div className="lib-grid">
+                  {assets.map((a) => (
+                    <div className="lib-item" key={a.id}>
+                      <button className="lib-pick" onClick={() => pickAsset(a)} title={a.name}>
+                        <img src={a.url} alt={a.name} loading="lazy" />
                       </button>
+                      <div className="lib-name">{a.name}</div>
+                      {a.source === "uploaded" && (
+                        <button className="lib-del" onClick={() => removeAsset(a)} title="削除">
+                          ×
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
-                {!editBase && (
-                  <label className="hint" style={{ display: "block", marginTop: 6 }}>
+                {canUpload ? (
+                  <>
+                    <div
+                      className="drop"
+                      style={{ marginTop: 10 }}
+                      onClick={() => assetFileRef.current?.click()}
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        uploadAssets(e.dataTransfer.files);
+                      }}
+                    >
+                      素材をライブラリに登録（全員で共有されます）
+                    </div>
                     <input
-                      type="checkbox"
-                      checked={useRefsForGen}
-                      onChange={(e) => setUseRefsForGen(e.target.checked)}
-                    />{" "}
-                    生成時にも参考画像を渡す（商品の再現に有効）
-                  </label>
+                      ref={assetFileRef}
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      hidden
+                      onChange={(e) => e.target.files && uploadAssets(e.target.files)}
+                    />
+                  </>
+                ) : (
+                  <div className="hint" style={{ marginTop: 10 }}>
+                    画面からの素材登録は、Vercel の Storage で Blob ストアを作成して接続すると使えるようになります（Hobbyプランは無料枠内で課金されません）。
+                  </div>
                 )}
-              </>
+              </div>
+            )}
+
+            <div
+              className="drop"
+              style={{ marginTop: 8 }}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                addFiles(e.dataTransfer.files);
+              }}
+              onClick={() => fileRef.current?.click()}
+            >
+              ここにドラッグ＆ドロップしても追加できます（自動で1024pxに縮小）
+            </div>
+
+            {allRefs.length > 0 && !editBase && (
+              <label className="hint" style={{ display: "block", marginTop: 6 }}>
+                <input
+                  type="checkbox"
+                  checked={useRefsForGen}
+                  onChange={(e) => setUseRefsForGen(e.target.checked)}
+                />{" "}
+                生成時にも参考画像を渡す（商品の再現に有効）
+              </label>
             )}
           </div>
 

@@ -1,0 +1,11 @@
+{
+  "_readme": [
+    "素材ライブラリの『同梱素材』定義。商品画像は products.json の images で管理するので、ここには背景・小道具などの参考素材を登録します。",
+    "  ・path: public/ 以下のパス。ファイルは public/assets/scenes/ に置きます。",
+    "  ・category: scene（背景・小道具）／reference（確定カットなど参考にしたい完成画像）／other。",
+    "  ・toneId: テイストに紐づける場合に書きます。そのテイストを選ぶと候補の先頭に出ます。",
+    "追加手順: GitHub で public/assets/scenes/ にファイルをアップロード → このファイルに1件書き足す → Commit（2分で反映）。",
+    "画面からアップロードした素材は Vercel Blob に入り、このファイルには書かれません（自動で一覧に出ます）。"
+  ],
+  "assets": []
+}
